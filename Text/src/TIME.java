@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class TIME {
     public static void main(String[] args) {
@@ -19,5 +19,8 @@ public class TIME {
         System.out.println("明天: " + tomorrow);
         System.out.println("下个月: " + nextMonth);
         System.out.println("去年今天: " + lastYear);
+
+        Date date=new Date();
+        System.out.println(date);//会自动调用date(toString()).
     }
 }
