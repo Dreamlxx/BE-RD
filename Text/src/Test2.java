@@ -1,6 +1,7 @@
 import java.util.*;
 
 //遍历map.
+//hashmap
 
 public class Test2{
     public static void main(String[] args) {
