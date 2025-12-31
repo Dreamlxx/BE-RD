@@ -2,10 +2,16 @@ public class Puppy {
     private int age;
     private String name;
 
+    public  Puppy(){
+
+    }
+
     // 构造器
-    public Puppy(String name) {
+    public Puppy(String name,int age) {
         this.name = name;
+        this.age=age;
         System.out.println("小狗的名字是 : " + name);
+        System.out.println("小狗的年龄是 : " + age);
     }
 
     // 设置 age 的值
@@ -23,10 +29,23 @@ public class Puppy {
         return name;
     }
 
+    public class woman extends Puppy{
+        public woman(String name,int age){
+            super(name,age);
+        }
+
+        //重构
+        @Override
+        public int getAge() {
+            return super.getAge();
+        }
+    }
+
+
     // 主方法
     public static void main(String[] args) {
         // 创建对象
-        Puppy myPuppy = new Puppy("Tommy");
+        Puppy myPuppy = new Puppy("Tommy",36);
 
         // 通过方法来设定 age
         myPuppy.setAge(2);

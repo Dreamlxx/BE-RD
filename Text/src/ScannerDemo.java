@@ -23,6 +23,6 @@ public class ScannerDemo {
             String str2 = scan1.nextLine();
             System.out.println("输入的数据为：" + str2);
         }
-        scan.close();
+    scan.close();
     }
 }
