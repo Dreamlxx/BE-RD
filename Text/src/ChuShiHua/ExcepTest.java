@@ -1,3 +1,5 @@
+package ChuShiHua;
+
 public class ExcepTest{
 //异常处理,异常发生try中文件被保护
     public static void main(String args[]){

@@ -1,3 +1,5 @@
+package ChuShiHua;
+
 public class FanXing
 {
     // 泛型方法 printArray

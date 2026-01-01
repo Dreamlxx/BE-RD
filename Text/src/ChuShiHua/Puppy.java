@@ -1,3 +1,5 @@
+package ChuShiHua;
+
 public class Puppy {
     private int age;
     private String name;

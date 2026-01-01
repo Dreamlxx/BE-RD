@@ -1,3 +1,5 @@
+package ChuShiHua;
+
 // Dog类示例，展示不同类型的变量
 public class Dog {
     // 1. 类变量（静态变量） - 声明为static类型

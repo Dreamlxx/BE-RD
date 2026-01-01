@@ -1,4 +1,4 @@
-/*public class MeiJu {
+package ChuShiHua;/*public class ChuShiHua.MeiJu {
     enum X{a,b,c}
     public static void main(String[] args){
         X p=X.a;

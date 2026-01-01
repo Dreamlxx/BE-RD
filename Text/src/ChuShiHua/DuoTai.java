@@ -1,10 +1,12 @@
+package ChuShiHua;
+
 public class DuoTai {
     public static void main(String[] args) {
         // 第1行：调用show方法，传入Cat对象
         // 由于Cat是Animal的子类，这里会发生向上转型
         show(new Cat());
         // 执行过程：
-        // 1. new Cat() 创建Cat对象
+        // 1. new ChuShiHua.Cat() 创建Cat对象
         // 2. 传递给show方法，参数类型Animal接收Cat对象
         // 3. 进入show方法执行
 
