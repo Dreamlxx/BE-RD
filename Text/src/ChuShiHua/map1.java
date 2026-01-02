@@ -33,7 +33,7 @@ public class map1 {
         });
 
         System.out.println("2");
-        map.forEach((String key,String value)->{
+        map.forEach((String key,String value)-> {
             System.out.println(key+"="+value);
         });
 
