@@ -23,8 +23,8 @@ public class Poker {
                 x1.add(a+b);
             }
         }
-        x1.add("大王");
-        x1.add("小王");
+        x1.add(" 大王");
+        x1.add(" 小王");
 
 
         hm.put("J",11);
@@ -62,6 +62,10 @@ public class Poker {
                 }
             }
         }
+        //对牌进行排序
+        order(p1);
+        order(p2);
+        order(p3);
         //看牌
 
         lookCard(p1,"李响");
@@ -85,19 +89,32 @@ public class Poker {
                 正数：o1大插入到后面
                 负数：o1小插入到前面
                 0表示o1的数字跟o2的数字是一样的
-
                  */
 
-
-
                 //计算o1的花色和价值
-                o1.substring(0,1);
+                String color1 = o1.substring(0, 1);
+                int value1 = getValue(o1);
+
+                //计算o2的花色
+                String color2 = o2.substring(0, 1);
+                int value2 = getValue(o2);
 
 
-
-                return 0;
+                //比较o1和o2的值并返回
+                int i=value1-value2;
+                return i==0?color1.compareTo(color2):i;
             }
         });
+    }
+
+//获取数
+    public int getValue(String poker){
+        String number=poker.substring(1);
+        if(hm.containsKey(number)){
+            return hm.get(number);
+        }else{
+            return Integer.parseInt(number);//在hashmap中存在的key和value调用，没有的直接将当前传入的字符类型的数强制转化为int返回
+        }
     }
 
     public static void main(String[] args){

@@ -1,9 +1,6 @@
 package ChuShiHua;
 
-import java.util.Iterator;
-import java.util.Map;
-import  java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 //目的：通过键找值。
@@ -48,6 +45,12 @@ public class map1 {
             * 这样会在一句话使用两次next，是错误的*/
             String keyk=s.next();
             System.out.println(keyk+"="+map.get(keyk));
+
+            //这样生成的集合无法修改值。
+            List<String>list=List.of("lss","ss");
+//            list.add("dddd");这样就会报错
+
+            //Map的of方法上限是20个参数，10队键值对。
         }
     }
 }
