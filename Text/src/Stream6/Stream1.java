@@ -63,7 +63,7 @@ public class Stream1 {
 
         //终结方法
         long count = list.stream()
-                .count();
+                .count();//元素个数
         System.out.println(count);
 
         String[] array = list.stream()//toArray底层是创建一个数组，并把每个元素放进数组之中。
