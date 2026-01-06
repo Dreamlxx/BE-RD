@@ -1,4 +1,4 @@
-package IO;
+package IO_day1;
 
 import java.io.FileReader;
 import java.io.FileWriter;

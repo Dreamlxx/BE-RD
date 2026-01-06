@@ -1,4 +1,4 @@
-package IO;
+package IO_day1;
 
 //FileWriter
 

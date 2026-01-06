@@ -1,7 +1,6 @@
-package IO;
+package IO_day1;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class IO_3 {
