@@ -22,7 +22,7 @@ public class d2_4 {
         //反序列化
         ObjectInputStream ois=new ObjectInputStream(new FileInputStream("src\\b.txt"));
 
-        Student o =(Student) ois.readObject();
+        Student o =(Student) ois.readObject();//如果有多个Student，可以用ArraryList接住。
 
         System.out.println(o);
 
