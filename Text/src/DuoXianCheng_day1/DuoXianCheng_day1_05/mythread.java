@@ -1,9 +1,7 @@
 package DuoXianCheng_day1.DuoXianCheng_day1_05;
 
-import DuoXianCheng_day1.DuoXianCheng_day1_04.MyRun;
-
 public class mythread {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     MTd1 x1=new MTd1();
     MTd2 x2=new MTd2();
 
@@ -14,5 +12,13 @@ public class mythread {
 //当cxy结束，守护线程就不会走完，草草结束
         x1.start();
         x2.start();
+
+        x1.join();
+
+
+        for (int i = 0; i <10 ; i++) {
+            System.out.println("main:"+i);
+        }
+
     }
 }
