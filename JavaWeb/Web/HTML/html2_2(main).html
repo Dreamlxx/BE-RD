@@ -1,0 +1,90 @@
+<!--点一个感叹号全部直接生成-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 字符集类型 -->
+    <meta charset="UTF-8">
+    <!-- 视口设置 在移动设备上 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- 引入css方式2 -->
+    <style>
+        /* 标签选择器 ,最低的优先级*/
+        span {
+            color: rgba(25, 128, 89, 0.265);
+        }
+
+        /* 类选择器 ,优先级次之*/
+        .cls2 {
+            color: orange;
+        }
+
+        /* id选择器 ,优先级最高*/
+        #iddd {
+            font-size: 40px;
+            color: green;
+        }
+
+        a {
+            /* 去除超链接的下划线 */
+            text-decoration: none;/* 前面的英文是文本装饰的意思,none表示无 */
+        }
+
+        p {
+            /* 设置段落的行高 */
+            line-height: 2; /* 两倍行高 */
+
+            /* 设置首行缩进 */
+            text-indent: 2em; /* 缩进两个字符 */
+        }
+
+        /* 将divx4545设置为画面居中,占据屏幕80%的宽度 */
+        #x4545 {
+            width: 70%;
+            margin-left: auto;/*居中显示*/
+            margin-right: auto;/*居中显示*/
+        }
+    </style>
+</head>
+<body>
+    <div id="x4545">
+        <!-- 生成一个一级标题，输入我是理想 -->
+        <h1>我是理想</h1>
+        <!-- 定义一个超链接，链接到bilibili -->
+        <a href="https://www.bilibili.com" target="_blank">Bilibili</a>
+        <!-- a标签用来定义超链接，
+            href属性用来指定链接的地址。
+            target属性用来指定链接的打开方式
+            _blank表示在新标签页中打开链接，
+            _self表示在当前标签页中打开链接。 -->
+        
+        <span class="cls1">2026年1月22日</span>
+        <span class="cls2">理想超级无敌牛逼</span>
+        <span id="iddd">宇宙超级无敌大</span>
+        
+        <!-- 生成一个视频标签,video/4eaa770a6d0ae2f2c3a7386927ebb6ce.mp4 -->
+        
+        <!-- controls属性表示显示视频的控制栏,必须加!!! -->
+        
+        <!-- width和height属性用来设置视频的宽度和高度,单位px像素,也可以用百分比%
+            100%表示占满父元素的宽度或高度 -->
+        
+        <!-- 建议宽度和高度只设置一个,另一个自动适应比例
+            这样不会导致视频变形 -->
+        
+        <br><br>
+        <video src="video/4eaa770a6d0ae2f2c3a7386927ebb6ce.mp4" controls width="100%"></video>
+        <br>
+        <!-- b和strong是加粗标签 -->
+        <p>Hello，各位小伙伴儿们，大家好，我是本套课程的制作人.本视频是JavaWeb入门到精通系列课程中的HTML基础入门部分。<b>黑马-涛哥</b>。</p>
+        <p>本课程是<strong>专门为零基础小白打造的，课程从HTML基础语法开始讲起，逐步深入到HTML5新特性。</strong></p>
+        <p>课程内容丰富，案例实用，通俗易懂，适合初学者学习使用。</p>
+        <p>希望大家能够喜欢本课程，并且能够学有所成！</p>
+        
+        <img src="Image\aaaaiamg.png" alt="" style="width: 800px;">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单标签</title>
+    <style>
+        .lx input[type="text"]{
+            padding: 3px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- form 表单
+        action 属性: 指定表单数据提交到哪里,常用的有 URL 地址
+        method 属性: 指定表单数据提交方式, 常用的有 GET 和 POST(默认是get)
+            get的特点：
+                1. 提交的数据会附加在 URL 地址后面，数据量小
+                2. 提交的数据会暴露在 URL 地址中，不适合提交敏感数据
+            post的特点：
+                1. 提交的数据不会附加在 URL 地址后面，数据量大
+                2. 提交的数据不会暴露在 URL 地址中，适合提交敏感数据
+
+
+        表单如果想提交，必须有name属性，表示当前表单项的名称
+    -->
+    <form action="/save" method="post" class="lx">
+
+        <label for="username">用户名:</label>
+        <input type="text" name="username" id="username" placeholder="请输入姓名"><br>
+
+        <label for="password">密码:</label>
+        <input type="password" name="password" id="password" placeholder="请输入密码"><br>
+
+        性别:
+        <!-- 这里的name属性相同，表示一组单选框 
+        label标签的for属性可以和表单项的id属性关联，点击label标签相当于点击了对应的表单项
+        -->
+        <label><input type="radio" name="gender" id="gender" value="male"> 男</label>
+        <label><input type="radio" name="gender" id="gender" value="female"> 女</label><br>
+
+
+        爱好:
+        <input type="checkbox" name="hobby" value="reading"> 阅读
+        <input type="checkbox" name="hobby" value="sports"> 运动
+        <input type="checkbox" name="hobby" value="traveling"> 旅游<br>
+        生日: <input type="date" name="birthday"><br>
+        日期时间: <input type="datetime-local" name="dt"><br>
+        颜色: <input type="color" name="favcolor"><br>
+        <select name="country" id="country">
+            <option value="cn">中国</option>
+            <option value="us">美国</option>
+            <option value="uk">英国</option>
+        </select><br>
+
+        头像上传:<input type="file"><br>
+
+        描述：<textarea name="sss" id=""></textarea><br>
+        
+        <input type="submit" value="提交">
+        
+        <input type="reset" value="重置">
+    </form>
+</body>
+</html>

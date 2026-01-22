@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //变量，js是弱类型语言
+        let message = "Hello, JavaScript!";
+        message=2;
+        message=true;
+
+        //常量
+        const PI = 3.14;
+
+        //函数1
+        function greet(name) {
+            return "Hello, " + name + "!";
+        }
+        let greeting = greet("Alice");
+
+        //函数2 箭头函数
+        const add = (a, b) => a + b;
+        const sum = add(5, 7);
+
+        //函数3 匿名函数
+        const multiply = function(a, b) {
+            return a * b;
+        };
+        const product = multiply(3, 4);
+
+        //输出
+        alert(message);//弹出对话框
+        console.log(PI);//控制台输出
+
+        //定义学生对象
+        let student = {
+            name: "Bob",
+            age: 20,
+            major: "Computer Science",
+
+            sing:function() {
+                console.log(this.name + " is singing.");
+            },
+            run(){
+                console.log(this.name + " is running.");
+            }
+        };
+
+        //调用学生对象的方法
+        alert(student.name);
+        student.sing();
+        student.run();
+
+        //将对象以JSON格式输出
+        console.log(JSON.stringify(student));
+    </script>
+</body>
+</html>

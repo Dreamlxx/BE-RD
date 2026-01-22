@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel风格学生信息管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header h1 i {
+            color: #3498db;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #219653;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            padding: 20px;
+        }
+        
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 14px;
+        }
+        
+        .student-table th {
+            background-color: #ecf0f1;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .student-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+        
+        .student-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .student-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .student-table input,
+        .student-table select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .student-table input:focus,
+        .student-table select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .student-table .actions {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #d68910;
+        }
+        
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .save-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #219653;
+        }
+        
+        .cancel-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .status-select {
+            width: 100%;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status-inactive {
+            background-color: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .status-graduated {
+            background-color: #d6eaf8;
+            color: #3498db;
+        }
+        
+        .footer {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .footer-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .formula-bar {
+            background-color: #f8f9fa;
+            padding: 8px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-family: 'Consolas', monospace;
+        }
+        
+        .formula-label {
+            font-weight: 600;
+            margin-right: 10px;
+            color: #2c3e50;
+        }
+        
+        .formula-input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: white;
+        }
+        
+        .empty-row {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .editing {
+            background-color: #fffde7 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-table"></i> 学生信息管理系统</h1>
+            <div class="controls">
+                <button class="btn btn-primary" id="addStudent">
+                    <i class="fas fa-user-plus"></i> 添加学生
+                </button>
+                <button class="btn btn-success" id="saveAll">
+                    <i class="fas fa-save"></i> 保存全部
+                </button>
+                <button class="btn btn-secondary" id="resetForm">
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+                <button class="btn btn-danger" id="deleteAll">
+                    <i class="fas fa-trash-alt"></i> 删除全部
+                </button>
+            </div>
+        </div>
+        
+        <div class="formula-bar">
+            <div class="formula-label">fx</div>
+            <input type="text" class="formula-input" id="formulaBar" placeholder="选中单元格查看详情或编辑公式..." readonly>
+        </div>
+        
+        <div class="table-container">
+            <table class="student-table" id="studentTable">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">序号</th>
+                        <th style="width: 120px;">学号</th>
+                        <th style="width: 100px;">姓名</th>
+                        <th style="width: 80px;">性别</th>
+                        <th style="width: 100px;">年龄</th>
+                        <th style="width: 150px;">专业</th>
+                        <th style="width: 120px;">班级</th>
+                        <th style="width: 100px;">入学日期</th>
+                        <th style="width: 120px;">联系电话</th>
+                        <th style="width: 100px;">状态</th>
+                        <th style="width: 120px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- 数据行将通过JavaScript动态添加 -->
+                </tbody>
+            </table>
+            <div class="empty-row" id="emptyMessage">暂无学生数据，点击"添加学生"按钮开始录入</div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-info">
+                <div>学生总数: <span id="totalCount">0</span></div>
+                <div>在读: <span id="activeCount">0</span></div>
+                <div>已毕业: <span id="graduatedCount">0</span></div>
+                <div>退学: <span id="inactiveCount">0</span></div>
+            </div>
+            <div>当前时间: <span id="currentTime"></span></div>
+        </div>
+    </div>
+    
+    <script>
+        // 示例学生数据
+        const sampleStudents = [
+            { id: "S001", name: "张三", gender: "男", age: 20, major: "计算机科学", className: "计科2021-1班", enrollmentDate: "2021-09-01", phone: "13800138001", status: "active" },
+            { id: "S002", name: "李四", gender: "女", age: 21, major: "软件工程", className: "软工2021-2班", enrollmentDate: "2021-09-01", phone: "13800138002", status: "active" },
+            { id: "S003", name: "王五", gender: "男", age: 22, major: "人工智能", className: "智能2020-1班", enrollmentDate: "2020-09-01", phone: "13800138003", status: "graduated" },
+            { id: "S004", name: "赵六", gender: "女", age: 19, major: "数据科学", className: "数据2022-1班", enrollmentDate: "2022-09-01", phone: "13800138004", status: "active" },
+            { id: "S005", name: "钱七", gender: "男", age: 23, major: "网络工程", className: "网络2019-1班", enrollmentDate: "2019-09-01", phone: "13800138005", status: "inactive" }
+        ];
+        
+        // 状态映射
+        const statusMap = {
+            active: { text: "在读", class: "status-active" },
+            inactive: { text: "退学", class: "status-inactive" },
+            graduated: { text: "已毕业", class: "status-graduated" }
+        };
+        
+        // 专业选项
+        const majors = ["计算机科学", "软件工程", "人工智能", "数据科学", "网络工程", "信息安全", "物联网工程"];
+        
+        // 当前编辑的行ID
+        let editingRowId = null;
+        
+        // 初始化表格
+        function initTable() {
+            const tableBody = document.getElementById('tableBody');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            // 清空表格
+            tableBody.innerHTML = '';
+            
+            // 如果没有数据，显示空消息
+            if (sampleStudents.length === 0) {
+                emptyMessage.style.display = 'block';
+                updateFooterCounts();
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            
+            // 添加学生行
+            sampleStudents.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.id = `row-${index}`;
+                row.dataset.studentId = student.id;
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.gender}</td>
+                    <td>${student.age}</td>
+                    <td>${student.major}</td>
+                    <td>${student.className}</td>
+                    <td>${student.enrollmentDate}</td>
+                    <td>${student.phone}</td>
+                    <td><span class="status-select ${statusMap[student.status].class}">${statusMap[student.status].text}</span></td>
+                    <td class="actions">
+                        <button class="action-btn edit-btn" onclick="editRow(${index})"><i class="fas fa-edit"></i> 编辑</button>
+                        <button class="action-btn delete-btn" onclick="deleteRow(${index})"><i class="fas fa-trash"></i> 删除</button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateFooterCounts();
+        }
+        
+        // 更新页脚计数
+        function updateFooterCounts() {
+            const totalCount = sampleStudents.length;
+            const activeCount = sampleStudents.filter(s => s.status === 'active').length;
+            const graduatedCount = sampleStudents.filter(s => s.status === 'graduated').length;
+            const inactiveCount = sampleStudents.filter(s => s.status === 'inactive').length;
+            
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('activeCount').textContent = activeCount;
+            document.getElementById('graduatedCount').textContent = graduatedCount;
+            document.getElementById('inactiveCount').textContent = inactiveCount;
+        }
+        
+        // 添加新学生
+        function addStudent() {
+            // 生成新学号
+            const lastId = sampleStudents.length > 0 ? 
+                parseInt(sampleStudents[sampleStudents.length - 1].id.substring(1)) : 0;
+            const newId = `S${(lastId + 1).toString().padStart(3, '0')}`;
+            
+            // 创建新学生对象
+            const newStudent = {
+                id: newId,
+                name: "",
+                gender: "男",
+                age: 18,
+                major: majors[0],
+                className: "未分配",
+                enrollmentDate: new Date().toISOString().split('T')[0],
+                phone: "",
+                status: "active"
+            };
+            
+            // 添加到数据数组
+            sampleStudents.push(newStudent);
+            
+            // 重新初始化表格
+            initTable();
+            
+            // 编辑新添加的行
+            editRow(sampleStudents.length - 1);
+        }
+        
+        // 编辑行
+        function editRow(index) {
+            // 如果已经有行在编辑，先取消编辑
+            if (editingRowId !== null && editingRowId !== index) {
+                cancelEdit(editingRowId);
+            }
+            
+            const row = document.getElementById(`row-${index}`);
+            const student = sampleStudents[index];
+            
+            // 标记为编辑状态
+            row.classList.add('editing');
+            
+            // 将单元格转换为可编辑的输入框
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td><input type="text" value="${student.id}" id="edit-id-${index}" readonly></td>
+                <td><input type="text" value="${student.name}" id="edit-name-${index}" required></td>
+                <td>
+                    <select id="edit-gender-${index}">
+                        <option value="男" ${student.gender === '男' ? 'selected' : ''}>男</option>
+                        <option value="女" ${student.gender === '女' ? 'selected' : ''}>女</option>
+                    </select>
+                </td>
+                <td><input type="number" value="${student.age}" id="edit-age-${index}" min="15" max="50" required></td>
+                <td>
+                    <select id="edit-major-${index}">
+                        ${majors.map(major => `<option value="${major}" ${student.major === major ? 'selected' : ''}>${major}</option>`).join('')}
+                    </select>
+                </td>
+                <td><input type="text" value="${student.className}" id="edit-class-${index}" required></td>
+                <td><input type="date" value="${student.enrollmentDate}" id="edit-date-${index}" required></td>
+                <td><input type="tel" value="${student.phone}" id="edit-phone-${index}" pattern="[0-9]{11}" required></td>
+                <td>
+                    <select id="edit-status-${index}" class="status-select">
+                        <option value="active" ${student.status === 'active' ? 'selected' : ''}>在读</option>
+                        <option value="graduated" ${student.status === 'graduated' ? 'selected' : ''}>已毕业</option>
+                        <option value="inactive" ${student.status === 'inactive' ? 'selected' : ''}>退学</option>
+                    </select>
+                </td>
+                <td class="actions">
+                    <button class="action-btn save-btn" onclick="saveRow(${index})"><i class="fas fa-check"></i> 保存</button>
+                    <button class="action-btn cancel-btn" onclick="cancelEdit(${index})"><i class="fas fa-times"></i> 取消</button>
+                </td>
+            `;
+            
+            editingRowId = index;
+            
+            // 更新公式栏
+            document.getElementById('formulaBar').value = `正在编辑: ${student.name || '新学生'} (${student.id})`;
+        }
+        
+        // 保存行
+        function saveRow(index) {
+            const student = sampleStudents[index];
+            
+            // 获取输入的值
+            student.name = document.getElementById(`edit-name-${index}`).value;
+            student.gender = document.getElementById(`edit-gender-${index}`).value;
+            student.age = parseInt(document.getElementById(`edit-age-${index}`).value);
+            student.major = document.getElementById(`edit-major-${index}`).value;
+            student.className = document.getElementById(`edit-class-${index}`).value;
+            student.enrollmentDate = document.getElementById(`edit-date-${index}`).value;
+            student.phone = document.getElementById(`edit-phone-${index}`).value;
+            student.status = document.getElementById(`edit-status-${index}`).value;
+            
+            // 验证必填字段
+            if (!student.name || !student.phone) {
+                alert('请填写所有必填字段！');
+                return;
+            }
+            
+            // 清除编辑状态
+            editingRowId = null;
+            
+            // 重新初始化表格
+            initTable();
+            
+            // 更新公式栏
+            document.getElementById('formulaBar').value = `已保存: ${student.name} (${student.id})`;
+            
+            // 显示保存成功消息
+            setTimeout(() => {
+                document.getElementById('formulaBar').value = '';
+            }, 2000);
+        }
+        
+        // 取消编辑
+        function cancelEdit(index) {
+            // 清除编辑状态
+            editingRowId = null;
+            
+            // 重新初始化表格
+            initTable();
+            
+            // 清空公式栏
+            document.getElementById('formulaBar').value = '';
+        }
+        
+        // 删除行
+        function deleteRow(index) {
+            if (confirm(`确定要删除学生 "${sampleStudents[index].name}" 吗？`)) {
+                sampleStudents.splice(index, 1);
+                initTable();
+                document.getElementById('formulaBar').value = `已删除学生记录`;
+                
+                setTimeout(() => {
+                    document.getElementById('formulaBar').value = '';
+                }, 2000);
+            }
+        }
+        
+        // 保存全部
+        function saveAll() {
+            if (sampleStudents.length === 0) {
+                alert('没有可保存的数据！');
+                return;
+            }
+            
+            // 如果有正在编辑的行，先保存
+            if (editingRowId !== null) {
+                saveRow(editingRowId);
+            }
+            
+            // 在实际应用中，这里会发送数据到服务器
+            const studentData = JSON.stringify(sampleStudents, null, 2);
+            console.log('保存的学生数据:', studentData);
+            
+            document.getElementById('formulaBar').value = `已保存 ${sampleStudents.length} 条学生记录`;
+            
+            setTimeout(() => {
+                document.getElementById('formulaBar').value = '';
+                alert(`成功保存 ${sampleStudents.length} 条学生记录！`);
+            }, 1000);
+        }
+        
+        // 重置表单
+        function resetForm() {
+            if (confirm('确定要重置所有数据吗？这将恢复为初始示例数据。')) {
+                // 恢复示例数据
+                sampleStudents.length = 0;
+                sampleStudents.push(...[
+                    { id: "S001", name: "张三", gender: "男", age: 20, major: "计算机科学", className: "计科2021-1班", enrollmentDate: "2021-09-01", phone: "13800138001", status: "active" },
+                    { id: "S002", name: "李四", gender: "女", age: 21, major: "软件工程", className: "软工2021-2班", enrollmentDate: "2021-09-01", phone: "13800138002", status: "active" },
+                    { id: "S003", name: "王五", gender: "男", age: 22, major: "人工智能", className: "智能2020-1班", enrollmentDate: "2020-09-01", phone: "13800138003", status: "graduated" },
+                    { id: "S004", name: "赵六", gender: "女", age: 19, major: "数据科学", className: "数据2022-1班", enrollmentDate: "2022-09-01", phone: "13800138004", status: "active" },
+                    { id: "S005", name: "钱七", gender: "男", age: 23, major: "网络工程", className: "网络2019-1班", enrollmentDate: "2019-09-01", phone: "13800138005", status: "inactive" }
+                ]);
+                
+                initTable();
+                document.getElementById('formulaBar').value = '已重置数据';
+                
+                setTimeout(() => {
+                    document.getElementById('formulaBar').value = '';
+                }, 2000);
+            }
+        }
+        
+        // 删除全部
+        function deleteAll() {
+            if (sampleStudents.length === 0) {
+                alert('没有可删除的数据！');
+                return;
+            }
+            
+            if (confirm(`确定要删除所有 ${sampleStudents.length} 条学生记录吗？此操作不可撤销！`)) {
+                sampleStudents.length = 0;
+                initTable();
+                document.getElementById('formulaBar').value = '已删除所有学生记录';
+                
+                setTimeout(() => {
+                    document.getElementById('formulaBar').value = '';
+                }, 2000);
+            }
+        }
+        
+        // 更新当前时间
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化表格
+            initTable();
+            
+            // 设置事件监听器
+            document.getElementById('addStudent').addEventListener('click', addStudent);
+            document.getElementById('saveAll').addEventListener('click', saveAll);
+            document.getElementById('resetForm').addEventListener('click', resetForm);
+            document.getElementById('deleteAll').addEventListener('click', deleteAll);
+            
+            // 更新当前时间并设置定时器
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            
+            // 表格点击事件 - 更新公式栏
+            document.getElementById('studentTable').addEventListener('click', function(e) {
+                const cell = e.target.closest('td');
+                if (cell && !cell.classList.contains('actions')) {
+                    const rowIndex = cell.parentElement.rowIndex - 1; // 减去表头行
+                    const colIndex = cell.cellIndex;
+                    
+                    if (rowIndex >= 0 && rowIndex < sampleStudents.length) {
+                        const student = sampleStudents[rowIndex];
+                        const headers = ['序号', '学号', '姓名', '性别', '年龄', '专业', '班级', '入学日期', '联系电话', '状态'];
+                        const header = headers[colIndex];
+                        
+                        let value = '';
+                        switch(colIndex) {
+                            case 0: value = rowIndex + 1; break;
+                            case 1: value = student.id; break;
+                            case 2: value = student.name; break;
+                            case 3: value = student.gender; break;
+                            case 4: value = student.age; break;
+                            case 5: value = student.major; break;
+                            case 6: value = student.className; break;
+                            case 7: value = student.enrollmentDate; break;
+                            case 8: value = student.phone; break;
+                            case 9: value = statusMap[student.status].text; break;
+                        }
+                        
+                        document.getElementById('formulaBar').value = `单元格 ${String.fromCharCode(65 + colIndex)}${rowIndex + 2}: ${header} = "${value}"`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
