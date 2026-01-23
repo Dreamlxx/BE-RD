@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class leetCode_1 {
     public static void main(String[] args) {
         Solution solution=new Solution();
