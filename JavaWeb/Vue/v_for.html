@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单Vue表格 - v-for示例</title>
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3>员工信息表</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>职位</th>
+                    <th>部门</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- v-for循环渲染表格行 -->
+                <!-- 插值表达式不能出现在标签属性中，如需动态绑定属性值，请使用v-bind指令或其缩写“:” -->
+                <tr v-for="(e, index) in people" :key="e.id">
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.name }}</td>
+                    <td>{{e.gender==1?"男":"女"}}</td>
+                    <td>{{ e.position }}</td>
+                    <td>{{ e.department }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="module">
+        import { createApp } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js';
+
+        // 创建Vue应用
+        //接管上面的div块儿
+        createApp ({
+            data() {
+                return {
+                    people: [
+                        { id: 1, name: '张三', gender: '1', position: '前端工程师', department: '技术部' },
+                        { id: 2, name: '李四', gender: '0', position: '产品经理', department: '产品部' },
+                        { id: 3, name: '王五', gender: '1', position: 'UI设计师', department: '设计部' },
+                        { id: 4, name: '赵六', gender: '0', position: '后端工程师', department: '技术部' }
+                    ]
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
