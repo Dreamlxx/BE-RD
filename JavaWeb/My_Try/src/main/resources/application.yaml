@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: My_Try
+  datasource:
+    url: jdbc:mysql://localhost:3306/mytry
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: LZll6666
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
